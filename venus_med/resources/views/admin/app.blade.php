@@ -72,12 +72,40 @@
                 <div data-i18n="Dashboards">Dashboard</div>
               </a>
             </li>
+            @if (Auth::user()->admin == 1)
+                 <li class="menu-item">
+                    <a href="/users" class="menu-link ">
+                      <i class="menu-icon tf-icons bx bx-user"></i>
+                      <div data-i18n="Layouts">Foydalanuvchilar</div>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="/regions/viloyat" class="menu-link ">
+                      <i class='menu-icon bx bxs-city'></i>
+                      <div data-i18n="Layouts">Viloyatlar</div>
+                    </a>
+                  </li>
+                  
+            @endif
+           @if (Auth::user()->admin == 1 || Auth::user()->admin == 2)
             <li class="menu-item">
-              <a href="/users" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Layouts">Foydalanuvchilar</div>
+              <a href="/regions/tuman" class="menu-link ">
+                <i class='menu-icon bx bxs-business'></i>
+                <div data-i18n="Layouts">Tumanlar</div>
               </a>
             </li>
+           @endif
+           @if (Auth::user()->admin == 1 || Auth::user()->admin == 2 || Auth::user()->admin == 3)
+            <li class="menu-item">
+              <a href="/regions/kasalxona" class="menu-link ">
+                <i class='menu-icon bx bx-plus-medical' ></i>
+                <div data-i18n="Layouts">Kasalxonalar</div>
+              </a>
+            </li>
+           @endif
+            
+            
+            
           </ul>
         </aside>
         <div class="layout-page">

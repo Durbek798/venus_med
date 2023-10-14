@@ -1,4 +1,10 @@
-@extends('admin.app') @section('content')
+@php
+   $isAdmin = Auth()->user()->admin;
+@endphp
+
+@extends('admin.app')
+
+@section('content')
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -29,6 +35,15 @@
                                             enctype="multipart/form-data"
                                         >
                                             @csrf
+                                            @if ($isAdmin == 1)
+                                                <select name="admin_id" class="form-select">
+                                                <option value="Null">Admin turini tanlang</option>
+                                                @foreach ($admins as $admin)
+                                                    <option value="{{ $admin->id }}">{{ $admin->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @endif
+                                            <br>
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -42,11 +57,30 @@
                                                 name="email"
                                             /><br />
                                             <input
-                                                type="text"
+                                                type="password"
                                                 class="form-control"
                                                 placeholder="parol"
                                                 name="password"
                                             /><br />
+                                            @if ($isAdmin == 1)
+                                                <select name="viloyat_id" class="form-select">
+                                                    <option value="Null">Viloyatni tanlang</option>
+                                                    @foreach ($viloyatlar as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <br>
+                                            @elseif ($isAdmin == 2)
+                                                <select name="viloyat_id" class="form-select">
+                                                    <option value="Null">Tumanni tanlang</option>
+                                                    @foreach ($tumanlar as $tuman)
+                                                        @if (Auth()->user()->viloyat_id == $tuman->viloyat_id)
+                                                            <option value="{{ $tuman->id }}">{{ $tuman->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                <br>
+                                            @endif
                                             <div class="d-grid">
                                                 <label
                                                     for="userPhotoInput"
@@ -62,7 +96,7 @@
                                                 /><br />
                                             </div>
 
-                                            <div class="model-footer">
+                                            <div class="modal-footer">
                                                 <br />
                                                 <button
                                                     type="button"
@@ -97,34 +131,34 @@
                 <tbody class="table-border-bottom-0">
                     <tr>
                         <td>@php echo $s++; @endphp</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>
                             @if ($user->photo === null)
                             <img src="/backend/user.png" width="40px" alt="" />
                             @else
                             <img
                                 type="button"
-                                data-bs-target="#showUserPhotoModal{{$user->id}}"
+                                data-bs-target="#showUserPhotoModal{{ $user->id }}"
                                 data-bs-toggle="modal"
-                                src="/userPhotos/{{$user->photo}}"
+                                src="/userPhotos/{{ $user->photo }}"
                                 width="40px"
                                 alt=""
                             />
                             <div
                                 class="modal fade"
-                                id="showUserPhotoModal{{$user->id}}"
+                                id="showUserPhotoModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content p-3">
                                         <img
-                                            src="/userPhotos/{{$user->photo}}"
+                                            src="/userPhotos/{{ $user->photo }}"
                                             class="rounded"
                                             alt=""
                                         />
-                                        <div class="model-footer">
+                                        <div class="modal-footer">
                                             <br />
                                             <button
                                                 type="button"
@@ -145,7 +179,7 @@
                                 type="button"
                                 class="btn btn-danger"
                                 data-bs-toggle="modal"
-                                data-bs-target="#deleteUserModal{{$user->id}}"
+                                data-bs-target="#deleteUserModal{{ $user->id }}"
                             >
                                 <i class="bx bxs-trash-alt"></i>
                             </button>
@@ -153,7 +187,7 @@
                             <!-- Modal -->
                             <div
                                 class="modal fade"
-                                id="deleteUserModal{{$user->id}}"
+                                id="deleteUserModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
@@ -162,10 +196,10 @@
                                         <span
                                             >Siz haqiqatdan ham
                                             <span class="text-primary"
-                                                >{{$user->name}}</span
+                                                >{{ $user->name }}</span
                                             >ni o'chirmoqchimisiz?</span
                                         >
-                                        <div class="model-footer">
+                                        <div class="modal-footer">
                                             <br />
                                             <button
                                                 type="button"
@@ -175,7 +209,7 @@
                                                 Yopish
                                             </button>
                                             <a
-                                                href="/users/delete-user/{{$user->id}}"
+                                                href="/users/delete-user/{{ $user->id }}"
                                                 class="btn btn-danger"
                                                 >O'chirish</a
                                             >
@@ -187,7 +221,7 @@
                                 type="button"
                                 class="btn btn-warning"
                                 data-bs-toggle="modal"
-                                data-bs-target="#editUserModal{{$user->id}}"
+                                data-bs-target="#editUserModal{{ $user->id }}"
                             >
                                 <i class="bx bx-pencil"></i>
                             </button>
@@ -195,14 +229,14 @@
                             <!-- Modal -->
                             <div
                                 class="modal fade"
-                                id="editUserModal{{$user->id}}"
+                                id="editUserModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content p-3">
                                         <form
-                                            action="/users/edit-user/{{$user->id}}"
+                                            action="/users/edit-user/{{ $user->id }}"
                                             method="post"
                                             enctype="multipart/form-data"
                                         >
@@ -210,17 +244,17 @@
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                value="{{$user->name}}"
+                                                value="{{ $user->name }}"
                                                 name="name"
                                             /><br />
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                value="{{$user->email}}"
+                                                value="{{ $user->email }}"
                                                 name="email"
                                             /><br />
                                             <input
-                                                type="text"
+                                                type="password"
                                                 class="form-control"
                                                 placeholder="parol"
                                                 name="password"
@@ -239,7 +273,7 @@
                                                 /><br />
                                             </div>
 
-                                            <div class="model-footer">
+                                            <div class="modal-footer">
                                                 <br />
                                                 <button
                                                     type="button"
@@ -262,20 +296,20 @@
                         </td>
                     </tr>
                 </tbody>
-                @endif @endforeach
+                @endif
+                @endforeach
             </table>
         </div>
     </div>
 </div>
-@foreach ($users as $user) @if ($user->admin === Null)
 
+@foreach ($users as $user)
+@if ($user->admin === Null)
 <br /><br />
-
 <div class="container">
     <div class="card">
         <div class="card-body">
             <h3 class="text-center">Yangi doydalanuvchilar</h3>
-
             <table class="table">
                 <thead>
                     <tr>
@@ -286,40 +320,40 @@
                         <th>Sozlamalar</th>
                     </tr>
                 </thead>
-                @php $a = 1 ; @endphp @foreach ($users as $user) 
-                @if ($user->admin === Null)
-
+                @php $a = 1 ; @endphp
+                 @foreach ($users as $user) 
+                 @if ($user->admin === Null)
                 <tbody class="table-border-bottom-0">
                     <tr>
                         <td>@php echo $a++; @endphp</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>
                             @if ($user->photo === null)
                             <img src="/backend/user.png" width="40px" alt="" />
                             @else
                             <img
                                 type="button"
-                                data-bs-target="#showUserPhotoModal{{$user->id}}"
+                                data-bs-target="#showUserPhotoModal{{ $user->id }}"
                                 data-bs-toggle="modal"
-                                src="/userPhotos/{{$user->photo}}"
+                                src="/userPhotos/{{ $user->photo }}"
                                 width="40px"
                                 alt=""
                             />
                             <div
                                 class="modal fade"
-                                id="showUserPhotoModal{{$user->id}}"
+                                id="showUserPhotoModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
                                 <div class="modal-dialog" role="document">
-                                    <div class="modal-content p-3">
+                                    <div class "modal-content p-3">
                                         <img
-                                            src="/userPhotos/{{$user->photo}}"
+                                            src="/userPhotos/{{ $user->photo }}"
                                             class="rounded"
                                             alt=""
                                         />
-                                        <div class="model-footer">
+                                        <div class="modal-footer">
                                             <br />
                                             <button
                                                 type="button"
@@ -332,7 +366,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             @endif
                         </td>
                         <td>
@@ -340,7 +373,7 @@
                                 type="button"
                                 class="btn btn-danger"
                                 data-bs-toggle="modal"
-                                data-bs-target="#deleteUserModal{{$user->id}}"
+                                data-bs-target="#deleteUserModal{{ $user->id }}"
                             >
                                 <i class="bx bxs-trash-alt"></i>
                             </button>
@@ -348,7 +381,7 @@
                             <!-- Modal -->
                             <div
                                 class="modal fade"
-                                id="deleteUserModal{{$user->id}}"
+                                id="deleteUserModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
@@ -357,10 +390,10 @@
                                         <span
                                             >Siz haqiqatdan ham
                                             <span class="text-primary"
-                                                >{{$user->name}}</span
+                                                >{{ $user->name }}</span
                                             >ni o'chirmoqchimisiz?</span
                                         >
-                                        <div class="model-footer">
+                                        <div class="modal-footer">
                                             <br />
                                             <button
                                                 type="button"
@@ -370,7 +403,7 @@
                                                 Yopish
                                             </button>
                                             <a
-                                                href="/users/delete-user/{{$user->id}}"
+                                                href="/users/delete-user/{{ $user->id }}"
                                                 class="btn btn-danger"
                                                 >O'chirish</a
                                             >
@@ -382,7 +415,7 @@
                                 type="button"
                                 class="btn btn-success"
                                 data-bs-toggle="modal"
-                                data-bs-target="#setUserToAdminModal{{$user->id}}"
+                                data-bs-target="#setUserToAdminModal{{ $user->id }}"
                             >
                                 <i class="bx bx-check-double"></i>
                             </button>
@@ -390,7 +423,7 @@
                             <!-- Modal -->
                             <div
                                 class="modal fade"
-                                id="setUserToAdminModal{{$user->id}}"
+                                id="setUserToAdminModal{{ $user->id }}"
                                 tabindex="-1"
                                 aria-hidden="true"
                             >
@@ -399,10 +432,10 @@
                                         <span
                                             >Siz haqiqatdan ham
                                             <span class="text-primary"
-                                                >{{$user->name}}</span
+                                                >{{ $user->name }}</span
                                             >ni admin qilmoqchimisiz?</span
                                         >
-                                        <div class="model-footer">
+                                        <div class="modal-footer">
                                             <br />
                                             <button
                                                 type="button"
@@ -412,7 +445,7 @@
                                                 Yopish
                                             </button>
                                             <a
-                                                href="/users/set-user-to-admin/{{$user->id}}"
+                                                href="/users/set-user-to-admin/{{ $user->id }}"
                                                 class="btn btn-success"
                                                 >Admin Qilish</a
                                             >
@@ -423,9 +456,13 @@
                         </td>
                     </tr>
                 </tbody>
-                @endif @endforeach
+                @endif
+                @endforeach
             </table>
         </div>
     </div>
 </div>
-@endif @endforeach @endsection
+@endif
+@endforeach
+
+@endsection

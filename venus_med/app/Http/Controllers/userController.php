@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
+
+use App\admin;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use File;   
+use App\viloyat;
+use App\tuman;
 
 class userController extends Controller
 {
     public function index()
     {
-        $users= User::all();
+        $users = User::all();
+        $admins = admin::all();
+        $viloyatlar = viloyat::all();
+        $tumanlar = tuman::all();
         return view('control.users',[
-            'users'=>$users
+            'viloyatlar'=>$viloyatlar,
+            'tumanlar'=>$tumanlar,
+            'users'=>$users,
+            'admins'=>$admins
         ]);
         
     }

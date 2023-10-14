@@ -28,6 +28,24 @@ Route::prefix('users')->group(function () {
 });
 
 
+Route::prefix('regions')->group(function () {
+
+    Route::get('/viloyat', 'regionController@viloyat');
+    Route::post('/add-viloyat', 'regionController@addViloyat');
+    Route::post('/edit-viloyat/{id}', 'regionController@editViloyat');
+    Route::get('/delete-viloyat/{id}', 'regionController@deleteViloyat');
+
+    Route::get('/tuman', 'regionController@Tuman');
+    Route::post('/add-tuman', 'regionController@addTuman');
+    Route::post('/edit-tuman/{id}', 'regionController@editTuman');
+    Route::get('/delete-tuman/{id}', 'regionController@deleteTuman');
+    
+    Route::get('/kasalxona', 'regionController@kasalxona');
+    Route::post('/add-kasalxona', 'regionController@addKasalxona');
+    Route::post('/edit-kasalxona/{id}', 'regionController@editKasalxona');
+    Route::get('/delete-kasalxona/{id}', 'regionController@deleteKasalxona');
+
+});
 
 
 
