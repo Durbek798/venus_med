@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('admin')->nullable();
             $table->string('photo')->nullable();
-            $table->string('viloyat_id');
-            $table->string('tuman_id');
-            $table->string('kasalxona_id');
+            $table->string('viloyat_id')->nullable();
+            $table->string('tuman_id')->nullable();
+            $table->string('kasalxona_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

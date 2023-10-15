@@ -13,7 +13,7 @@
             <div class="card mt-4">
             <div class="card-body">
                 <h3 class="text-center">{{ $tuman->name }}dagi kasalxonalar</h3>
-                
+
                 <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addKasalxonaningModal{{$tuman->id}}">
                     +
                 </button>
@@ -29,15 +29,15 @@
                                             <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                         </select>
                                         <br>
-                                        
+
                                     @endif
-                                    
+
                                         @if ($tuman->viloyat_id == $viloyat->id)
                                         <select name="viloyat_id" class="form-select">
                                             <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                         </select>
                                         <br>
-                                        
+
                                     @endif
 
                                 @endforeach
@@ -49,8 +49,8 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Yopish</button>
+                                    <button type="submit" class="btn btn-success">Saqlash</button>
                                 </div>
                             </form>
                         </div>
@@ -70,7 +70,7 @@
                         @php $s = 1; @endphp
                         @foreach ($kasalxonas as $kasalxona)
                         @foreach ($viloyats as $viloyatItem)
-                        
+
                         @if($viloyatItem->id == $tuman->viloyat_id)
                         @if ($tuman->id == $kasalxona->tuman_id)
                         <tr>
@@ -81,7 +81,7 @@
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#deleteKasalxonaModal{{ $kasalxona->id }}">
-                                    Delete
+                                    <i class='bx bxs-trash-alt'></i>
                                 </button>
                                 <div class="modal fade" id="deleteKasalxonaModal{{ $kasalxona->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -89,16 +89,16 @@
                                             <span>Siz haqiqatdan ham <span class="text-primary">{{ $kasalxona->name }}</span>ni
                                                 o'chirmoqchimisiz?</span>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
+                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Yopish
                                                 </button>
-                                                <a href="/regions/delete-kasalxona/{{$kasalxona->id}}" class="btn btn-danger">Delete</a>
+                                                <a href="/regions/delete-kasalxona/{{$kasalxona->id}}" class="btn btn-danger">O'chirish</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                     data-bs-target="#editKasalxonaModal{{ $kasalxona->id }}">
-                                    Edit
+                                    <i class='bx bxs-edit'></i>
                                 </button>
                                 <div class="modal fade" id="editKasalxonaModal{{ $kasalxona->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -117,7 +117,7 @@
                                                             <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                                         </select>
                                                         <br>
-                                                        
+
                                                     @endif
                                                 @endforeach
                                                 <select name="tuman_id" class="form-select" >
@@ -127,8 +127,8 @@
                                                 <input type="text" name="name" class="form-control" value="{{$kasalxona->name}}">
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                        data-bs-dismiss="modal">Yopish</button>
+                                                    <button type="submit" class="btn btn-success">Saqlash</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -150,7 +150,7 @@
                 <div class="card mt-4">
                     <div class="card-body">
                         <h3 class="text-center">{{ $tuman->name }}dagi kasalxonalar</h3>
-                        
+
                         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTumanModal{{$tuman->id}}">
                             +
                         </button>
@@ -166,14 +166,14 @@
                                                     <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                                 </select>
                                                 <br>
-                                                
+
                                             @endif
                                             @if ($tuman->viloyat_id == $viloyat->id)
                                                 <select name="viloyat_id" class="form-select">
                                                     <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                                 </select>
                                                 <br>
-                                                
+
                                             @endif
                                         @endforeach
                                             <select name="tuman_id" class="form-select">
@@ -205,7 +205,7 @@
                                 @php $s = 1; @endphp
                                 @foreach ($kasalxonas as $kasalxona)
                                 @foreach ($viloyats as $viloyatItem)
-                                
+
                                 @if($viloyatItem->id == $tuman->viloyat_id)
                                 @if ($tuman->id == $kasalxona->tuman_id)
                                 <tr>
@@ -216,7 +216,7 @@
                                     <td>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#deleteTumanModal{{ $tuman->id }}">
-                                            Delete
+                                            <i class="bx bx-trash-alt"></i>
                                         </button>
                                         <div class="modal fade" id="deleteTumanModal{{ $tuman->id }}" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -226,14 +226,14 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
                                                         </button>
-                                                        <a href="/regions/delete-kasalxone" class="btn btn-danger">Delete</a>
+                                                        <a href="/regions/delete-kasalxone" class="btn btn-danger">O'chirish</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editKasalxonaModal{{ $kasalxona->id }}">
-                                            Edit
+                                            <i class="bx bx-pencil"></i>
                                         </button>
                                         <div class="modal fade" id="editKasalxonaModal{{ $kasalxona->id }}" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -252,7 +252,7 @@
                                                                     <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                                                 </select>
                                                                 <br>
-                                                                
+
                                                             @endif
                                                         @endforeach
                                                         <select name="tuman_id" class="form-select" >
@@ -262,8 +262,8 @@
                                                         <input type="text" name="name" class="form-control" value="{{$kasalxona->name}}">
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-outline-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-success">Save</button>
+                                                                data-bs-dismiss="modal">Yopish</button>
+                                                            <button type="submit" class="btn btn-success">Saqlash</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -281,12 +281,12 @@
                 </div>
             @endif
         @endforeach
-        
+
         @if ($userTuman == $tuman->id && $isAdmin == 3)
             <div class="card mt-4">
                 <div class="card-body">
                     <h3 class="text-center">{{ $tuman->name }}dagi kasalxonalar</h3>
-                    
+
                     <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTumanModal{{$tuman->id}}">
                         +
                     </button>
@@ -302,14 +302,14 @@
                                                 <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                             </select>
                                             <br>
-                                            
+
                                         @endif
                                         @if ($tuman->viloyat_id == $viloyat->id)
                                             <select name="viloyat_id" class="form-select">
                                                 <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                             </select>
                                             <br>
-                                            
+
                                         @endif
                                     @endforeach
                                         <select name="tuman_id" class="form-select">
@@ -320,8 +320,8 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Yopish</button>
+                                        <button type="submit" class="btn btn-success">O'chirish</button>
                                     </div>
                                 </form>
                             </div>
@@ -341,7 +341,7 @@
                             @php $s = 1; @endphp
                             @foreach ($kasalxonas as $kasalxona)
                             @foreach ($viloyats as $viloyatItem)
-                            
+
                             @if($viloyatItem->id == $tuman->viloyat_id)
                             @if ($tuman->id == $kasalxona->tuman_id)
                             <tr>
@@ -352,7 +352,7 @@
                                 <td>
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteTumanModal{{ $tuman->id }}">
-                                        Delete
+                                        <i class="bx bx-trash-alt"></i>
                                     </button>
                                     <div class="modal fade" id="deleteTumanModal{{ $tuman->id }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -360,16 +360,16 @@
                                                 <span>Siz haqiqatdan ham <span class="text-primary">{{ $kasalxona->name }}</span>ni
                                                     o'chirmoqchimisiz?</span>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Yopish
                                                     </button>
-                                                    <a href="/regions/delete-kasalxone" class="btn btn-danger">Delete</a>
+                                                    <a href="/regions/delete-kasalxone" class="btn btn-danger">O'chirish</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#editKasalxonaModal{{ $kasalxona->id }}">
-                                        Edit
+                                        <i class="bx bx-pencil"></i>
                                     </button>
                                     <div class="modal fade" id="editKasalxonaModal{{ $kasalxona->id }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -388,7 +388,7 @@
                                                                 <option value="{{$viloyat->id}}">{{$viloyat->name}}</option>
                                                             </select>
                                                             <br>
-                                                            
+
                                                         @endif
                                                     @endforeach
                                                     <select name="tuman_id" class="form-select" >
@@ -398,8 +398,8 @@
                                                     <input type="text" name="name" class="form-control" value="{{$kasalxona->name}}">
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success">Save</button>
+                                                            data-bs-dismiss="modal">Yopish</button>
+                                                        <button type="submit" class="btn btn-success">Saqlash</button>
                                                     </div>
                                                 </form>
                                             </div>

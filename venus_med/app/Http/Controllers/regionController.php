@@ -62,7 +62,10 @@ class regionController extends Controller
         ]);
         return back();
     }
-    
+    public function deleteTuman($id){
+        tuman::where('id',$id)->delete();
+        return back();
+    }
 
     public function kasalxona(){
         $viloyats = viloyat::all();

@@ -21,10 +21,18 @@ Auth::routes();
 
 Route::prefix('users')->group(function () {
     Route::get('/', 'userController@index');
+    Route::get('/profile/{id}', 'userController@profile');
+    Route::get('/settings/{id}', 'userController@settings');
     Route::post('/add-user', 'userController@add');
     Route::post('/edit-user/{id}', 'userController@edit');
+    Route::post('/edit-user-by-settings/{id}', 'userController@editUserBySettings');
+    Route::post('/change-user-photo/{id}', 'userController@changeUserPhoto');
     Route::get('/delete-user/{id}', 'userController@delete');
     Route::get('/set-user-to-admin/{id}', 'userController@admin');
+
+     Route::post('/add-viloyat-admin', 'userController@addVIloyatAdmin');
+     Route::post('/add-tuman-admin', 'userController@addTumanAdmin');
+     Route::post('/add-kasalxona-admin', 'userController@addKasalxonaAdmin');
 });
 
 
@@ -39,7 +47,7 @@ Route::prefix('regions')->group(function () {
     Route::post('/add-tuman', 'regionController@addTuman');
     Route::post('/edit-tuman/{id}', 'regionController@editTuman');
     Route::get('/delete-tuman/{id}', 'regionController@deleteTuman');
-    
+
     Route::get('/kasalxona', 'regionController@kasalxona');
     Route::post('/add-kasalxona', 'regionController@addKasalxona');
     Route::post('/edit-kasalxona/{id}', 'regionController@editKasalxona');
